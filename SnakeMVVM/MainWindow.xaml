@@ -1,0 +1,46 @@
+﻿<Window x:Class="SnakeMVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SnakeMVVM"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="White">
+
+<Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" ></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Image Source="{Binding BitmapImage}" Width="250" Height="250" Grid.Column="0" ></Image>
+
+    <ItemsControl ItemsSource="{Binding AllRect}" Grid.Column="1" Grid.ColumnSpan="2">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Canvas Background="Black" Height="400" Width="400"></Canvas>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemContainerStyle>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="Canvas.Top" Value="{Binding Location.PosTopCanvas}"></Setter>
+                <Setter Property="Canvas.Left" Value="{Binding Location.PosLeftCanvas}"></Setter>
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Rectangle Width="{Binding BasicRectangle.Width}" Height="{Binding BasicRectangle.Height}" Fill="{Binding BasicRectangle.Fill}"></Rectangle>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    </Grid>
+
+    <Window.InputBindings>
+        <KeyBinding Key="W" Command="{Binding ChangeDirectionCommand}" CommandParameter="0"/>
+        <KeyBinding Key="D" Command="{Binding ChangeDirectionCommand}" CommandParameter="1"/>
+        <KeyBinding Key="S" Command="{Binding ChangeDirectionCommand}" CommandParameter="2"/>
+        <KeyBinding Key="A" Command="{Binding ChangeDirectionCommand}" CommandParameter="3"/>
+    </Window.InputBindings>
+
+</Window>
